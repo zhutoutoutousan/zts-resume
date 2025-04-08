@@ -1,5 +1,6 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface Job {
   company: string
@@ -8,6 +9,8 @@ interface Job {
   link?: string
   codeLink?: string
   highlights: string[]
+  techStack?: string[]
+  level?: number
 }
 
 const jobs: Job[] = [
@@ -133,98 +136,187 @@ const jobs: Job[] = [
   }
 ]
 
+// Add tech stack to each job
+const techStacks = {
+  "yuege-bootcamp.it.com": ["Next.js", "NestJS", "PostgreSQL", "TailwindCSS", "WebSocket", "Redux"],
+  "chaoschess.xyz": ["React", "WebSocket", "Node.js", "MongoDB"],
+  "Independent Quant Developer": ["MQL5", "Python", "TradingView"],
+  "Avature": ["PHP", "Twig", "Figma", "MySQL"],
+  "Novelmonkey": ["Next.js", "TailwindCSS", "OpenAI"],
+  "PwC Shanghai": ["TypeScript", "Next.js", "NestJS", "Azure", "Kubernetes"],
+  "MORIMATSU": ["Vue.js", "Vuex", "Sass", "i18n"],
+  "Inkdeeps": ["Unity", "WebGL", "Three.js"],
+  "Legrand SLEC": ["Node.js", "MongoDB", "Vue.js", "LabVIEW"],
+  "Yangzhou University": ["Python", "TensorFlow", "MATLAB"]
+}
+
+interface GameState {
+  selectedTechs: string[]
+  score: number
+  attempts: number
+  revealed: boolean
+}
+
 export default function Experience() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [currentJob, setCurrentJob] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [gameState, setGameState] = useState<GameState>({
+    selectedTechs: [],
+    score: 0,
+    attempts: 3,
+    revealed: false
+  })
 
-  useEffect(() => {
-    const cards = document.querySelectorAll('.job-card')
+  const availableTechs = [
+    "React", "Next.js", "Vue.js", "Node.js", "Python", "TypeScript",
+    "MongoDB", "PostgreSQL", "MySQL", "WebSocket", "Redux", "TailwindCSS",
+    "Three.js", "WebGL", "Unity", "Azure", "Kubernetes", "Docker",
+    "TensorFlow", "MATLAB", "PHP", "Figma", "MQL5", "TradingView"
+  ]
+
+  const handleTechSelect = (tech: string) => {
+    if (gameState.attempts === 0 || gameState.revealed) return
+
+    const currentTechStack = techStacks[jobs[currentJob].company as keyof typeof techStacks] || []
+    const isCorrect = currentTechStack.includes(tech)
     
-    cards.forEach((card, index) => {
-      // Random rotation between -5 and 5 degrees
-      const rotation = (Math.random() - 0.5) * 10
-      // Random X offset between -20 and 20px
-      const translateX = (Math.random() - 0.5) * 40
-      // Random scale between 0.95 and 1.05
-      const scale = 0.95 + Math.random() * 0.1
-      
-      ;(card as HTMLElement).style.transform = 
-        `rotate(${rotation}deg) translateX(${translateX}px) scale(${scale})`
+    setGameState(prev => ({
+      ...prev,
+      selectedTechs: [...prev.selectedTechs, tech],
+      score: isCorrect ? prev.score + 10 : prev.score,
+      attempts: prev.attempts - 1,
+      revealed: prev.attempts === 1 || prev.selectedTechs.length + 1 === currentTechStack.length
+    }))
+  }
+
+  const nextJob = () => {
+    setCurrentJob(prev => prev + 1)
+    setGameState({
+      selectedTechs: [],
+      score: gameState.score,
+      attempts: 3,
+      revealed: false
     })
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect()
-        const x = clientX - (rect.left + rect.width / 2)
-        const y = clientY - (rect.top + rect.height / 2)
-        const distance = Math.sqrt(x * x + y * y)
-        
-        if (distance < 400) {
-          const angle = Math.atan2(y, x)
-          const force = (400 - distance) / 400 // Stronger effect when closer
-          const moveX = Math.cos(angle) * force * 20
-          const moveY = Math.sin(angle) * force * 20
-          const rotation = force * 5
-          
-          ;(card as HTMLElement).style.transform += 
-            ` translate(${moveX}px, ${moveY}px) rotate(${rotation}deg)`
-        }
-      })
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }
 
   return (
-    <div className="experience-section" ref={containerRef}>
-      <h2 className="section-title glitch-text" data-text="EXPERIENCE">
-        EXPERIENCE
-      </h2>
-      <div className="jobs-grid">
-        {jobs.map((job, index) => (
-          <div 
-            key={index} 
-            className="job-card"
-            style={{
-              '--delay': `${index * 0.1}s`,
-              '--hue': `${index * 60}deg`
-            } as React.CSSProperties}
+    <div className="experience-game">
+      {!isPlaying ? (
+        <motion.div 
+          className="game-start"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <h2 className="game-title">TECH JOURNEY</h2>
+          <p className="game-description">
+            Explore my career journey and guess the tech stack used in each role!
+          </p>
+          <button 
+            className="start-button"
+            onClick={() => setIsPlaying(true)}
           >
-            <div className="card-glitch-effect"></div>
-            <div className="job-header">
-              <h3 className="company-name">
-                {job.link ? (
-                  <a href={job.link} target="_blank" rel="noopener noreferrer" className="company-link">
-                    {job.company}
-                  </a>
-                ) : (
-                  job.company
-                )}
-              </h3>
-              <div className="job-meta">
-                <span className="job-role">{job.role}</span>
-                <span className="job-period">{job.period}</span>
-              </div>
-            </div>
-            <ul className="job-highlights">
-              {job.highlights.map((highlight, i) => (
-                <li key={i} className="highlight-item">{highlight}</li>
-              ))}
-            </ul>
-            {job.codeLink && (
-              <a 
-                href={job.codeLink} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="code-link"
-              >
-                VIEW CODE
-              </a>
-            )}
+            START JOURNEY
+          </button>
+        </motion.div>
+      ) : (
+        <div className="game-container">
+          <div className="game-hud">
+            <div className="score">SCORE: {gameState.score}</div>
+            <div className="attempts">ATTEMPTS LEFT: {gameState.attempts}</div>
+            <div className="level">LEVEL {currentJob + 1}/{jobs.length}</div>
           </div>
-        ))}
-      </div>
+          
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={currentJob}
+              className="job-display"
+              initial={{ x: 300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -300, opacity: 0 }}
+            >
+              <h3 className="company-name">{jobs[currentJob].company}</h3>
+              <div className="role-badge">{jobs[currentJob].role}</div>
+              <div className="period-display">{jobs[currentJob].period}</div>
+              
+              <div className="highlights-container">
+                {jobs[currentJob].highlights.map((highlight, index) => (
+                  <motion.div
+                    key={index}
+                    className="highlight-card"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {highlight}
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="tech-game-section">
+                <h4 className="tech-title">Guess the Tech Stack!</h4>
+                <div className="tech-options">
+                  {availableTechs.map((tech) => (
+                    <button
+                      key={tech}
+                      className={`tech-button ${
+                        gameState.selectedTechs.includes(tech) ? 'selected' : ''
+                      } ${
+                        gameState.revealed &&
+                        techStacks[jobs[currentJob].company as keyof typeof techStacks]?.includes(tech)
+                          ? 'correct'
+                          : ''
+                      }`}
+                      onClick={() => handleTechSelect(tech)}
+                      disabled={gameState.selectedTechs.includes(tech) || gameState.attempts === 0}
+                    >
+                      {tech}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {(gameState.revealed || gameState.attempts === 0) && (
+                <div className="tech-reveal">
+                  <h4>Actual Tech Stack:</h4>
+                  <div className="tech-stack-list">
+                    {techStacks[jobs[currentJob].company as keyof typeof techStacks]?.map((tech) => (
+                      <span key={tech} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {jobs[currentJob].link && (
+                <a 
+                  href={jobs[currentJob].link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link"
+                >
+                  VIEW PROJECT
+                </a>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="navigation-controls">
+            <button
+              className="nav-button"
+              disabled={currentJob === 0}
+              onClick={() => setCurrentJob(prev => prev - 1)}
+            >
+              ← PREVIOUS
+            </button>
+            <button
+              className="nav-button"
+              disabled={currentJob === jobs.length - 1}
+              onClick={nextJob}
+            >
+              NEXT →
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 } 

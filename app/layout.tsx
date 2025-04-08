@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import ChaosNav from '@/components/ChaosNav'
+import ChaosRoulette from '@/components/ChaosRoulette'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -75,7 +77,11 @@ export default function RootLayout({
         <link rel="canonical" href="https://your-domain.com" />
         <meta name="theme-color" content="#000000" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ChaosRoulette />
+        <ChaosNav />
+        <main>{children}</main>
+      </body>
     </html>
   )
 }
