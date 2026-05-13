@@ -47,13 +47,15 @@ body {
 
 /* Hero Section */
 .hero-section {
-  height: 90vh;
+  min-height: 90vh;
+  min-height: 90dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
-  padding: 2rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  padding-top: max(1rem, env(safe-area-inset-top));
 }
 
 .hero-content {
@@ -304,16 +306,21 @@ body {
 
 .glitch-container {
   position: relative;
-  padding: 2rem;
+  padding: clamp(0.75rem, 4vw, 2rem);
   text-align: center;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .glitch-text {
-  font-size: 5rem;
+  font-size: clamp(1.75rem, 10vw, 5rem);
   font-weight: 900;
   color: #fff;
   position: relative;
   text-transform: uppercase;
+  max-width: 100%;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
   text-shadow: 
     0.05em 0 0 rgba(255,0,0,0.75),
     -0.025em -0.05em 0 rgba(0,255,0,0.75),
@@ -346,24 +353,32 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: clamp(0.85rem, 3.5vw, 1.5rem);
   color: #fff;
   margin: 2rem 0;
   font-family: 'Courier New', monospace;
   border: 2px solid #fff;
-  padding: 1rem;
+  padding: clamp(0.5rem, 2vw, 1rem);
   background: #000;
   position: relative;
   overflow: hidden;
+  max-width: min(100%, 36rem);
+  margin-left: auto;
+  margin-right: auto;
+  word-break: break-word;
 }
 
 .language-list {
   font-family: 'Courier New', monospace;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: clamp(0.7rem, 2.8vw, 1.2rem);
   margin-top: 1rem;
   letter-spacing: 0.2em;
   animation: float 3s ease-in-out infinite;
+  max-width: 100%;
+  padding: 0 0.5rem;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 .contact-section {
@@ -1224,6 +1239,29 @@ body {
   transform-origin: center;
   backface-visibility: hidden;
   transition: all 0.3s ease;
+}
+
+.chaos-center {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #ff00ff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+.chaos-pointer {
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background: #ff00ff;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
 }
 
 .chaos-button {
@@ -2537,5 +2575,168 @@ body {
   100% {
     opacity: 1;
     filter: hue-rotate(360deg);
+  }
+}
+
+/* Toolbar wrapper: desktop children stay fixed; mobile stacks into one column */
+.chaos-fixed-toolbar {
+  display: contents;
+}
+
+.site-main {
+  min-height: 100vh;
+}
+
+.project-link,
+.repo-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  margin-right: 0.5rem;
+  padding: 0.65rem 1.1rem;
+  border: 2px solid #0ff;
+  color: #0ff;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.project-link:hover,
+.repo-link:hover {
+  background: rgba(0, 255, 255, 0.15);
+}
+
+.repo-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --chaos-toolbar-offset: min(42vh, 21rem);
+  }
+
+  .chaos-fixed-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    gap: 0.35rem;
+    padding: 0.4rem 0.5rem 0.5rem;
+    max-height: var(--chaos-toolbar-offset);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.82) 72%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    pointer-events: none;
+  }
+
+  .chaos-fixed-toolbar > * {
+    pointer-events: auto;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: min(100%, 320px) !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+    flex-shrink: 0;
+    padding: 10px 12px !important;
+    gap: 10px !important;
+  }
+
+  .chaos-fixed-toolbar .chaos-title,
+  .chaos-fixed-toolbar .roulette-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    line-height: 1.25;
+  }
+
+  .chaos-fixed-toolbar .cylinder-container,
+  .chaos-fixed-toolbar .chaos-cylinder-container {
+    transform: scale(0.72);
+    transform-origin: center center;
+    margin: -24px auto;
+  }
+
+  .chaos-fixed-toolbar .spin-button,
+  .chaos-fixed-toolbar .chaos-button {
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 0.72rem;
+    touch-action: manipulation;
+  }
+
+  .site-main {
+    padding-top: calc(var(--chaos-toolbar-offset) + 0.35rem);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+@media (max-width: 768px) {
+  .job-card:nth-child(odd),
+  .job-card:nth-child(even) {
+    transform: none !important;
+  }
+
+  .job-card:hover {
+    transform: none !important;
+  }
+
+  .experience-section {
+    padding: 2rem 1rem;
+  }
+
+  .contact-section {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    font-size: 0.95rem;
+    word-break: break-word;
+  }
+
+  .projects-void .reality-metrics {
+    top: calc(var(--chaos-toolbar-offset, 12rem) + 0.5rem);
+    right: 0.5rem;
+    left: auto;
+    max-width: min(200px, 45vw);
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-hud {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .game-start {
+    margin: 1rem;
+    padding: 1.25rem;
+  }
+
+  .company-name {
+    font-size: clamp(1.2rem, 6vw, 1.65rem) !important;
+    word-break: break-word;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 8vw, 2.25rem);
   }
 }
