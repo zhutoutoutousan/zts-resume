@@ -2578,9 +2578,15 @@ body {
   }
 }
 
-/* Toolbar wrapper: desktop children stay fixed; mobile stacks into one column */
+/* Toolbar wrapper: hidden on small screens; display:contents on md+ so fixed children anchor to viewport */
 .chaos-fixed-toolbar {
-  display: contents;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .chaos-fixed-toolbar {
+    display: contents;
+  }
 }
 
 .site-main {
