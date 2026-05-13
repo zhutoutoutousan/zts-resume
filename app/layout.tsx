@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import ChaosNav from '@/components/ChaosNav'
@@ -6,7 +6,14 @@ import ChaosRoulette from '@/components/ChaosRoulette'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#000000',
+}
+
 export const metadata: Metadata = {
+  metadataBase: new URL('https://owenshao.space'),
   title: 'Owen Shao | Full Stack Developer & Polyglot Engineer',
   description: 'Full Stack Developer with expertise in Next.js, NestJS, and emerging technologies. Experienced in AI, blockchain, and quantitative trading. Multilingual professional fluent in 10+ languages.',
   keywords: [
@@ -75,12 +82,13 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="canonical" href="https://your-domain.com" />
-        <meta name="theme-color" content="#000000" />
       </head>
       <body className={inter.className}>
-        <ChaosRoulette />
-        <ChaosNav />
-        <main>{children}</main>
+        <div className="chaos-fixed-toolbar" aria-label="Navigation and effects">
+          <ChaosRoulette />
+          <ChaosNav />
+        </div>
+        <main className="site-main">{children}</main>
       </body>
     </html>
   )
