@@ -86,10 +86,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <MobileNav />
-        <div
-          className="chaos-fixed-toolbar hidden md:contents"
-          aria-label="Navigation and effects (desktop)"
-        >
+        <div className="chaos-fixed-toolbar" aria-label="Navigation and effects (desktop)">
           <ChaosRoulette />
           <ChaosNav />
         </div>
