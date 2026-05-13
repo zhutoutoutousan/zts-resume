@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import ChaosNav from '@/components/ChaosNav'
 import ChaosRoulette from '@/components/ChaosRoulette'
+import MobileNav from '@/components/MobileNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -84,7 +85,11 @@ export default function RootLayout({
         <link rel="canonical" href="https://your-domain.com" />
       </head>
       <body className={inter.className}>
-        <div className="chaos-fixed-toolbar" aria-label="Navigation and effects">
+        <MobileNav />
+        <div
+          className="chaos-fixed-toolbar hidden md:contents"
+          aria-label="Navigation and effects (desktop)"
+        >
           <ChaosRoulette />
           <ChaosNav />
         </div>
