@@ -3,7 +3,7 @@ export default function Contact() {
     <div className="contact-section">
       <div className="contact-item">
         <span className="contact-label">📱</span>
-        <span className="contact-value glitch-text-small">+8618018607207</span>
+        <span className="contact-value glitch-text-small">+49 176 25447252</span>
       </div>
       <div className="contact-item">
         <span className="contact-label">📧</span>
@@ -11,7 +11,7 @@ export default function Contact() {
       </div>
       <div className="contact-item">
         <span className="contact-label">💼</span>
-        <span className="contact-value glitch-text-small">linkedin/owen-shao</span>
+        <span className="contact-value glitch-text-small">linkedin.com/in/owen-shao</span>
       </div>
     </div>
   )

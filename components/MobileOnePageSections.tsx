@@ -3,7 +3,7 @@ import Contact from '@/components/Contact'
 import { jobs } from '@/data/experience'
 
 export default function MobileOnePageSections() {
-  const previewJobs = jobs.slice(0, 8)
+  const previewJobs = jobs.slice(0, 9)
 
   return (
     <div className="mobile-onepage-sections">
