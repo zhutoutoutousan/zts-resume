@@ -18,9 +18,9 @@ export const jobs: Job[] = [
     link: "https://resiliente-infrastruktur.de/de/",
     highlights: [
       "Supported development of RITS (Resilient Infrastructure Technology Suite): a research-backed platform that maps and analyzes energy, water, and food (EWF) infrastructure in Brandenburg and helps stakeholders coordinate information. Public site: https://resiliente-infrastruktur.de/de/",
-      "Contributed across the stack: REST APIs and data processing (Go), web application (Next.js / React), and integration with official datasets (e.g. German energy register workflows, geospatial imports).",
-      "Helped design and implement features for maps, reporting, and data-driven views used to monitor infrastructure and support resilient planning.",
-      "Collaborated on reliable ingestion and synchronization of large infrastructure datasets and on tooling that keeps analysis traceable and aligned with authoritative sources.",
+      "PostGIS/GIS platform: PostgreSQL/PostGIS microservices with Go/Fiber geospatial REST APIs (ST_Intersects, ST_DWithin, GeoJSON); MapLibre GL + Deck.gl frontend with 15+ infrastructure layers; ETL imports from MaStR, OSM/OpenInfraMap, ALKIS, BKG VG250, Natura 2000; proximity analysis, EEG atlas, cadastral parcels and admin boundaries.",
+      "AI + GIS chat: split-screen infrastructure chat + map — FastAPI agents route MaStR vs OpenInfraMap queries, fetch PostGIS APIs via MCP tools, render live GeoJSON overlays on MapLibre; complex agent harness workflows for geospatial Q&A.",
+      "Full stack: Next.js/React, Go, FastAPI, Docker; maps, reporting, and traceable data-driven views.",
     ],
   },
   {
@@ -38,9 +38,10 @@ export const jobs: Job[] = [
       },
     ],
     highlights: [
-      "Mined 100+ high-quality alphas for quantitative trading meeting Sharpe, fitness, and margin criteria; among ~10,000 BRAIN consultants worldwide.",
-      "Built worldquant-miner (Python GUI and AI agent tooling): 450+ stars and 120+ forks on GitHub; adopted by 1000+ BRAIN consultants, including a web interface for BRAIN workflows.",
-      "Developed MT5 Expert Advisor systems (example metrics: profit factor ~55, Sharpe ~32, max drawdown ~8%); additional profitable EAs in open source and commercial work.",
+      "Mined 100+ alphas for quantitative research.",
+      "Built worldquant-miner (Python/FastAPI, AST harness, bandit and genetic search): 743 stars and 203 forks on GitHub as of 4 Oct 2026.",
+      "Harness work: self-correcting AST/template validation, multi-arm bandits, and genetic search.",
+      "MT5 Expert Advisors live in the open-source repo profitable-expert-advisor.",
     ],
   },
   {
@@ -57,10 +58,20 @@ export const jobs: Job[] = [
   {
     company: "NAMELOS.XYZ",
     role: "Founder",
-    period: "Jan 2024 – May 2026",
+    period: "Jan 2024 – Present",
     highlights: [
       "Founded and shipped multiple products: wellness & language tutoring, founder matching (mindr.club), chaoschess.xyz, and browser tooling (e.g. Bilibili dual-subtitle extension).",
       "Growth and conversion experiments with SEO/AEO and multilingual positioning.",
+    ],
+  },
+  {
+    company: "Tradr",
+    role: "Full-stack",
+    period: "2024 – Present",
+    link: "https://www.tradr.it.com/",
+    codeLink: "https://github.com/zhutoutoutousan/tradr",
+    highlights: [
+      "Public project: trade and compete with computer strategy and an AI agent.",
     ],
   },
   {
@@ -88,7 +99,7 @@ export const jobs: Job[] = [
   {
     company: "Education First",
     role: "English Teacher",
-    period: "Dec 2023 – Mar 2024",
+    period: "Dec 2023 – Mar 2024 · Shanghai",
     highlights: [
       "TEFL-certified; strong student ratings and 200+ hours teaching professionals and investors from China.",
     ],
@@ -98,10 +109,13 @@ export const jobs: Job[] = [
     role: "Frontend Developer",
     period: "Dec 2023 - Apr 2024",
     link: "https://www.novelmonkey.ai/",
+    codeLink: "https://play.google.com/store/apps/details?id=topstory.fiction.novel",
     highlights: [
       "Optimized Next.js SEO with SSR, pre-rendering, and robots.txt configuration",
       "Led development of Novelmonkey and Hiwriter platforms",
       "Designed and developed AI applications including chatbot and writing editor",
+      "Shipped Fictio Android app on Google Play (500K+ downloads, 4.4/5) — fiction/novels with subscriptions, in-app purchases, multilingual library across 50+ countries",
+      "Designed AWS architecture: Next.js on ECS/EKS/Fargate; novel generation with AWS Bedrock and SQS; DynamoDB data modeling; CDK/CloudFormation IaC; AWS CI/CD workflows",
     ],
   },
   {
@@ -109,27 +123,28 @@ export const jobs: Job[] = [
     role: "Senior Software Engineer",
     period: "Aug 2021 - Dec 2023",
     highlights: [
-      "Led development of high-impact products used by 500+ directors globally with 4.8/5 value score",
-      "Full-stack development from scratch using TypeScript, Next.js, Nest.js, Azure CosmosDB Gremlin",
-      "DevOps integration with Turborepo, Microsoft Semantic Kernel, Azure pipeline, Veracode, SonarQube, JFrog",
-      "Project management with Azure DevOps, Sentry and Power BI dashboards connected to Azure Synapse",
+      "Started on the AWS team; earned AWS Certified Developer and SysOps Administrator (Associate).",
+      "International music academy OMS: digital transformation for teaching operations — Vue.js, Java Spring Boot, Redis/Redisson; built a CLI code generator and rapid low-code scaffolding (pre-LLM era); API collaboration via Postman.",
+      "Joined Innovation Hub: Daily Feed — AI chat UI + RSS curation for market intelligence, producing a graph-database knowledge tree; Emerging Tech Radar — interactive market/tech intelligence surface.",
+      "Deals Tech — Restructure Orgchart: complex enterprise UI with split-screen layouts, micro-frontends, and integrated chatbot; TypeScript / Next.js / NestJS / Azure CosmosDB Gremlin.",
+      "Products used by 500+ global directors (4.8/5); DevOps with Turborepo, Semantic Kernel, Azure Pipelines, Veracode, SonarQube, JFrog, Sentry, Power BI / Synapse.",
     ],
   },
   {
     company: "MORIMATSU",
     role: "Frontend Developer",
-    period: "Apr 2021 - Jun 2021",
+    period: "Apr 2021 - Jun 2021 · Shanghai",
     highlights: [
-      "Developed factory change management interface using Vue.js, Vuex, and Sass",
-      "Implemented global search with pagination and lazy loading",
-      "Multi-language support for Vietnamese, English, German, and French using vue-i18n",
-      "Resolved critical backend search pagination issues",
+      "Industrial MES frontends and factory panorama / plant-map UIs in Vue.js — D3.js for 2D overlays, Three.js for 3D views.",
+      "Integrated BIMFACE for industrial BIM interaction: complex equipment file trees and very large NVM/device models in-browser.",
+      "Addressed oversized plant models via mesh compression, low-poly LOD simplification, frustum/octree culling, and cloud rendering/streaming when client VRAM could not hold full scenes.",
+      "Change-management UI (Vuex, Sass); global search with pagination and lazy loading; i18n (Vietnamese, English, German, French).",
     ],
   },
   {
     company: "Inkdeeps",
     role: "Software Engineer",
-    period: "Oct 2020 - Apr 2021",
+    period: "Oct 2020 - Apr 2021 · Shanghai",
     highlights: [
       "Developed company landing page reporting directly to CEO",
       "Led 3D Online Virtual Exhibition Hall project using Unity and WebGL",
@@ -139,7 +154,7 @@ export const jobs: Job[] = [
   {
     company: "Legrand SLEC",
     role: "Automation Engineer",
-    period: "Oct 2019 - May 2020",
+    period: "Oct 2019 - May 2020 · Shanghai",
     highlights: [
       "Led sensor testing automation project using Node.js, LabVIEWDAQmx, MongoDB",
       "Developed intranet sensor trigger logging tool",
@@ -149,7 +164,7 @@ export const jobs: Job[] = [
   {
     company: "Yangzhou University",
     role: "NVH Researcher",
-    period: "May 2019 - Sep 2019",
+    period: "May 2019 - Sep 2019 · Yangzhou",
     link: "https://ieeexplore.ieee.org/document/9044105",
     codeLink: "https://github.com/zhutoutoutousan/Indirect-sensor-estimation",
     highlights: [
@@ -167,17 +182,33 @@ export const techStacks: Record<string, string[]> = {
     "Go",
     "TypeScript",
     "PostgreSQL",
+    "PostGIS",
+    "MapLibre GL",
+    "Deck.gl",
     "Python",
+    "FastAPI",
   ],
-  WorldQuant: ["Python", "MQL5", "TradingView"],
+  WorldQuant: ["Python", "MQL5", "TradingView", "FastAPI", "Cursor", "AWS Kiro", "Claude Code"],
   "yuege-bootcamp.it.com": ["Next.js", "NestJS", "PostgreSQL", "TailwindCSS", "WebSocket", "Redux"],
   "NAMELOS.XYZ": ["Next.js", "React", "Node.js", "TypeScript", "MongoDB"],
   "chaoschess.xyz": ["React", "WebSocket", "Node.js", "MongoDB"],
   Avature: ["PHP", "Twig", "Figma", "MySQL"],
   "Education First": ["React", "TypeScript"],
-  Novelmonkey: ["Next.js", "TailwindCSS", "OpenAI"],
-  "PwC Shanghai": ["TypeScript", "Next.js", "NestJS", "Azure", "Kubernetes"],
-  MORIMATSU: ["Vue.js", "Vuex", "Sass", "i18n"],
+  Novelmonkey: ["Next.js", "TailwindCSS", "OpenAI", "Android", "Google Play", "Mobile"],
+  "PwC Shanghai": [
+    "TypeScript",
+    "Next.js",
+    "NestJS",
+    "Vue.js",
+    "Java",
+    "Spring Boot",
+    "Redis",
+    "Azure",
+    "CosmosDB",
+    "Micro Frontends",
+    "AWS",
+  ],
+  MORIMATSU: ["Vue.js", "Vuex", "D3.js", "Three.js", "BIMFACE", "Sass", "i18n"],
   Inkdeeps: ["Unity", "WebGL", "Three.js"],
   "Legrand SLEC": ["Node.js", "MongoDB", "Vue.js", "LabVIEW"],
   "Yangzhou University": ["Python", "TensorFlow", "MATLAB"],
@@ -209,4 +240,19 @@ export const availableTechs = [
   "Figma",
   "MQL5",
   "TradingView",
+] as const
+
+export const certifications = [
+  {
+    name: "AWS Certified Developer – Associate",
+    issuer: "Amazon Web Services (AWS)",
+    issuedAt: "Nov 2021",
+    expiresAt: "Nov 2024",
+  },
+  {
+    name: "AWS Certified SysOps Administrator – Associate",
+    issuer: "Amazon Web Services (AWS)",
+    issuedAt: "Sep 2022",
+    expiresAt: "Sep 2025",
+  },
 ] as const
